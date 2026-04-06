@@ -1,6 +1,6 @@
 FROM node:20-bookworm
 
-RUN apt-get update && apt-get install -y python3-pip && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y python3-pip ffmpeg && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN npm ci --omit=dev
 COPY requirements.txt ./
 RUN pip install --break-system-packages -r requirements.txt
 
-COPY transcription_server.py transcribe_audio.py ./
+COPY transcription_server.py ./
 
 RUN mkdir -p dist/public/assets
 COPY index.cjs ./dist/index.cjs
